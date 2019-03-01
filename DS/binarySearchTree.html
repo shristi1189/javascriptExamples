@@ -1,0 +1,152 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Binary Search Tree</title>
+
+</head>
+
+<body>
+  <script>
+  function Node(val){
+  this.value = val;
+  this.left = null;
+  this.right = null;
+  }
+  function BinarySearchTree(){
+    this.root = null;
+  }
+  //Insert in BFS Tree
+  BinarySearchTree.prototype.push =  function(val){
+    var root = this.root;
+
+    if(!root){
+      this.root = new Node(val);
+      return;
+    }
+    var currentNode = this.root;
+    var newNode = new Node(val);
+
+    while(currentNode){
+      if(val < currentNode.value){
+        if(!currentNode.left){
+          currentNode.left = newNode;
+          break;
+        }else{
+          currentNode = currentNode.left;
+        }
+      }else{
+        if(!currentNode.right){
+          currentNode.right =  newNode;
+          break;
+        }else{
+          currentNode = currentNode.right;
+        }
+      }
+    }
+  }
+
+  //Delete Node from BFS Tree
+  BinarySearchTree.prototype.remove =  function(val){
+    this.root = this.removeInner(val, this.root);
+  }
+  BinarySearchTree.prototype.removeInner =  function(value,rootNode){
+    if (rootNode) {
+        if (value < rootNode.value) {
+            rootNode.left = this.removeInner(value, rootNode.left);
+        } else if (value > rootNode.value) {
+            rootNode.right = this.removeInner(value, rootNode.right);
+        } else if (rootNode.left && rootNode.right) {
+            rootNode.value = this.findMinValue(rootNode.right);
+            rootNode.right = this.removeInner(rootNode.value, rootNode.right);
+        } else {
+            rootNode = rootNode.left || rootNode.right;
+        }
+    }
+    return rootNode;
+  }
+  BinarySearchTree.prototype.findMinValue = function(node){
+    if ( !this.isEmpty() ) {
+      if ( node === void 0 ) node = this.root;
+      while ( node.left ) {
+        node = node.left;
+      }
+      return node.value;
+    }
+  }
+
+  //Tree Traversal
+  //Breadth First Search - Done Through Queues
+  BinarySearchTree.prototype.bfs = function (this.root) {
+   Queue<TreeNode> queue = new LinkedList<BinaryTree.TreeNode>() ;
+    if (this.root == null)
+        return;
+    queue.clear();
+    queue.add(this.root);
+    while(!queue.isEmpty()){
+        //TreeNode node = queue.remove();
+        //System.out.print(node.element + " ");
+        if(node.left != null) queue.add(node.left);
+        if(node.right != null) queue.add(node.right);
+    }
+  };
+
+  //Depth first search
+  BinarySearchTree.prototype.dfs =  function(node){
+    if(node){
+    console.log(node.value);
+    dfs(node.left);
+    dfs(node.right);
+  }
+  }
+
+  //Inorder Travesal -  inorder on left then root and inorder on right
+  BinarySearchTree.prototype.inorder = function(node){
+    if(node){
+      inorder(node.left); 
+      console.log(node.value); 
+      inorder(node.right);
+    }
+  }
+
+  //Preorder Travesal -  root then preorder left subtree and then preorder on right subtree
+  BinarySearchTree.prototype.preorder = function(node){
+    if(node){
+      console.log(node.value); 
+      preorder(node.left); 
+      preorder(node.right);
+    }
+  }
+
+  //Postorder Travesal -  postorder left subtree then postorder on right subtree and then the root
+  BinarySearchTree.prototype.postorder = function(node){
+    if(node){
+      postorder(node.left); 
+      postorder(node.right);
+      console.log(node.value); 
+    }
+  }
+
+  //get root node
+  BinarySearchTree.prototype.getRoot = function(node){
+    return this.root;
+  }
+
+  //Search 
+
+  var bfsTree =  new BinarySearchTree();
+  bfsTree.push(70);
+  bfsTree.push(400);
+  bfsTree.push(1000);
+  bfsTree.push(22);
+  bfsTree.push(7);
+  bfsTree.push(56);
+  bfsTree.push(20);
+  bfsTree.push(20);
+  bfsTree.push(59);
+  console.log(bfsTree);
+  </script>
+</body>
+</html>

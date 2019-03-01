@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Common JS Examples</title>
+</head>
+<body>
+  <script>
+  //Differnce between call/apply and bind
+  var obj = {name:"Shristi"};
+  var greeting = function(a,b,c){
+      return "welcome "+this.name+" to "+a+" "+b+" in "+c;
+  };
+  // array of arguments to the actual function
+  var args = ["Newtown","KOLKATA","WB"];  
+  console.log("Output using .apply() below ")
+  console.log(greeting.apply(obj,args));
+  console.log("Output using .apply() below ")
+  console.log(greeting.call(obj,"Newtown","KOLKATA","WB"));
+  var bound = greeting.bind(obj); //or to call greeting.bind(obj)("Newtown","KOLKATA","WB"); bind returns a function with the correct context set
+  console.log("Output using .bind() below ");
+  console.log(bound("Newtown","KOLKATA","WB"));  
+
+  //Callback Function
+  function modifyArray(arr, callback) {
+    // do something to arr here
+    arr.push(100);
+    // then execute the callback function that was passed
+    callback();
+  }
+  var arr = [1, 2, 3, 4, 5];
+  modifyArray(arr, function() {
+    console.log("array has been modified", arr);
+  });
+
+  //How would you use a closure to create a private counter
+    function counter() {
+    var _counter = 0;
+    // return an object with several functions that allow you to modify the private _counter variable
+    return {
+      add: function(increment) { _counter += increment; },
+      retrieve: function() { return 'The counter is currently at: ' + _counter; }
+    }
+    }
+    // error if we try to access the private variable like below _counter; usage of our counter function
+    var c = counter();
+    c.add(5); 
+    c.add(9); 
+    // now we can access the private variable in the following way
+    console.log(c.retrieve()); // => The counter is currently at: 14
+
+  //IIFE
+  //Basic IIFE with return and parameters
+  var result = (function(msg,str){
+    return msg+" "+str;
+  })("hello","Shristi");
+  console.log(result);
+
+  //Module Pattern(IIFE + Closures)
+  var counter = (function counter(){
+    let _counter = 0;
+    return {
+      current: function(){ return _counter},
+      incrementC: function(inc){ 
+        _counter=_counter+inc;
+        return _counter}
+    }
+  })();
+  console.log(counter.current());
+  console.log(counter.incrementC(5));
+  console.log(counter.current());
+  console.log(counter.incrementC(2));
+
+  //Closure
+  //Basic Example
+  function outer(){
+    var outVar = "Outer variable";
+    function inner(){
+      return outVar
+    }
+    return inner;
+  }
+  console.log(outer()());
+
+  //Multiply Example
+  function multiply(BaseNo){
+    return function(num){
+      return BaseNo*num;
+    }
+  }
+  var mulObj = multiply(10);
+  console.log(mulObj(4));
+  console.log(multiply(5)(5));
+
+  //Currying - each function has one argument
+  function multiplyCurry(a){
+    return (b) => {
+      return (c) =>{
+        return a*b*c;
+      }
+    }
+  }
+  console.log(multiplyCurry(5)(3)(3));
+
+  //Partial Function - nest functions into smaller arity
+  function multiplyPartial(a){
+    return (b,c) => {
+        return a*b*c;
+    }
+  }
+  console.log(multiplyPartial(5)(3,3));
+
+  //HOF
+  //JS map, filter, reduce
+  var sample = [1, 2, 3];
+  var sum=0;
+  //Map
+  var mapEx = sample.map((ele) => { return ele*10;});
+  //Filter
+  var filterEx = sample.filter((ele) => {return ele != 2});
+  //Reduce
+  var reduceEx = sample.reduce((sum,ele) => {
+    sum=sum+ele;
+    return sum;
+  });
+  console.log(mapEx);
+  console.log(filterEx);
+  console.log(reduceEx);
+
+  //Multiple Callback functions (You can also use the ajax call example)
+  function modifyArrayMultiple(arr,callback1,callback2) {
+    // do something to arr here
+    arr.push(100);
+    console.log(arr);
+    // then execute the callback function that was passed
+    callback1();
+    callback2();
+  }
+  function callback1Fn(){
+    console.log('callback 1 is called');
+  }
+  function callback2Fn(){
+    console.log('callback 2 is called');
+  }
+  var arr = [1, 2, 3, 4, 5];
+  modifyArrayMultiple(arr, callback1Fn, callback2Fn);
+  modifyArrayMultiple(arr,function(){
+    console.log('anonamus callback 1 is called');
+  },function(){
+    console.log('anonamus callback 2 is called');
+  });
+
+  //Callback function with parameters
+  function callbackWithParamEx(arr, callback){
+    arr.push(1000);
+    console.log(arr);
+    callback(arr);
+  }
+  callbackWithParamEx([2,3,4,5], function(arr){
+    arr.push(500);
+    console.log("new arr : " + arr);
+  });
+
+  //debouncing
+
+
+  //throttling
+
+
+  //Pure Function
+  function impure(arg) {
+    finalR.s = 90
+    return arg * finalR.s
+  }
+  function impure(arg) {
+    let f = finalR.s * arg
+  }
+  function impure(arg) {
+    return 3 * finalR.s
+  }
+  function pure(arg) {
+    return arg * 4
+  }
+
+  //"this" in various places
+  //this when callback is method of an object
+  var personObj = {
+    fullName: "Not Set",
+    setName: function(firstName, lastName){
+      this.fullName = firstName+" " +lastName;
+      return this.fullName;
+    }
+  }
+  function getInputName(firstName, lastName, callback, callbackObj){
+    console.log(callback.apply(callbackObj,[firstName,lastName]));
+  }
+  getInputName('Shristi','Sharma', personObj.setName, personObj)
+  //console.log(personObj.fullName);
+  console.log(personObj.setName("hello","user"));
+
+  //Inheritance ES5 Javascript
+  function Vehicle(name,type){
+    this.name = name,
+    this.type = type,
+    this.getName = function(){
+      return this.name;
+    },
+    this.getType = function(){
+      return this.type;
+    }
+  }
+  function Car(name){
+    Vehicle.call(this, name,'car');
+    this.getName = function(){
+      return 'It is a car: '+ this.name;
+    }
+  }
+  Car.prototype = Object.create(Vehicle.prototype);
+  Car.prototype.constructor = Car;
+  Car.parent = Vehicle.prototype;
+  var car = new Car('Tesla');
+  console.log(car.getName());
+  console.log(car.getType());
+
+  //Inheritance ES6 classes
+  class VehicleC{
+    constructor(name,type){
+    this.name = name;
+    this.type = type;
+    }
+    getName() {
+      return this.name;
+    }
+    getType() {
+      return this.type;
+    }
+  }
+  class CarC extends VehicleC{
+    constructor(name){
+      super(name,'car');
+    }
+    getName () {
+    return 'It is a car: ' + super.getName();
+    }
+  }
+  var car = new CarC('Civic');
+  console.log(car.getName());
+  console.log(car.getType());
+
+  //getter setter in ES6 
+  
+  </script>
+</body>
+</html>

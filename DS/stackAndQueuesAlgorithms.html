@@ -1,0 +1,119 @@
+<!--Stacks and Queues Algorithms -->
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>stack and Queues Algorithms</title>
+
+</head>
+
+<body>
+  <script>
+  //Given two queues as inputs, create a new queue by “weaving” them together.
+  class Queue{
+  	constructor(){
+  		this.data=[];
+  	}
+  	enqueue(record){
+  		this.data.unshift(record);
+  	}
+  	dequeue(){
+  		return this.data.pop();
+  	}
+  	peek(){
+  		return this.data[this.data.length-1];
+  	}
+  }
+
+  const weave = (queue1, queue2) => {
+  	debugger;
+  	const combinedQueue = new Queue;
+
+  	while(queue1.peek() || queue2.peek()){
+  		if(queue1.peek())
+  			combinedQueue.enqueue(queue1.dequeue());
+  		if(queue2.peek())
+  			combinedQueue.enqueue(queue2.dequeue());
+  	}
+  	console.log(combinedQueue);
+  	
+  }
+
+  const q1 = new Queue;
+  q1.enqueue(9);
+  q1.enqueue(7);
+  q1.enqueue(59);
+  q1.enqueue(6);
+  q1.enqueue(44);
+
+  const q2 = new Queue;
+  q2.enqueue("hello");
+  q2.enqueue("hell");
+  q2.enqueue("hlo");
+  q2.enqueue("lo");
+  q2.enqueue("h");
+
+  weave(q1,q2);
+
+  /////Implement enqueue and dequeue using only two stacks/////
+	var stackInput = []; // First stack
+	var stackOutput = []; // Second stack
+
+	// For enqueue, just push the item into the first stack
+	function enqueue1(stackInput, item) {
+	  return stackInput.push(item);
+	}
+
+	function dequeue1(stackInput, stackOutput) {
+	  // Reverse the stack such that the first element of the output stack is the
+	  // last element of the input stack. After that, pop the top of the output to
+	  // get the first element that was ever pushed into the input stack
+	  if (stackOutput.length <= 0) {
+	    while(stackInput.length > 0) {
+	      var elementToOutput = stackInput.pop();
+	      stackOutput.push(elementToOutput);
+	    }
+	  }
+
+	  return stackOutput.pop();
+	}
+
+  /////Create a function that will evaluate if a given expression has balanced parentheses -- Using stacks In this example, we will only consider "{}" as valid parentheses {}{} would be considered balancing. {{{}} is not balanced/////
+  	var expression = "{{}}{}{}"
+	var expressionFalse = "{}{{}";
+
+	isBalanced(expression); // true
+	isBalanced(expressionFalse); // false
+	isBalanced(""); // true
+
+	function isBalanced(expression) {
+	  var checkString = expression;
+	  var stack = [];
+
+	  // If empty, parentheses are technically balanced
+	  if (checkString.length <= 0) return true;
+
+	  for (var i = 0; i < checkString.length; i++) {
+	    if(checkString[i] === '{') {
+	      stack.push(checkString[i]);
+	    } else if (checkString[i] === '}') {
+	      // Pop on an empty array is undefined
+	      if (stack.length > 0) {
+	        stack.pop();
+	      } else {
+	        return false;
+	      }
+	    }
+	  }
+
+	  // If the array is not empty, it is not balanced
+	  if (stack.pop()) return false;
+	  return true;
+	}
+
+	
+  </script>
+</body>
+</html>

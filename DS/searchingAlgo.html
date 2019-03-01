@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Searching Algo</title>
+
+</head>
+
+<body>
+  <script>
+  //Linear Search - Most non-performant O(n) as it has to loop over full array list(both sorted and nor-sorted)
+  var arr = [2,3,4,6,8,9,34,36,22,87,69,97,23,14,12];
+
+  function linearSort(arr,find){
+  	for(var i=0; i<arr.length;i++){
+  		if(arr[i] === find){
+  			return i;
+  		}
+  	}
+  	return -1;
+  }
+
+  console.log(linearSort(arr,69));
+
+  //Binary Search(list should be sorted) - O(log n)
+  var arr1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,15,17,19];
+
+  function binarySearch(arr,find){
+  	let left=0;
+  	let right=arr.length-1;
+  	while(left<=right){
+  		const mid=math.floor((right+left)/2);
+  		if (arr[mid] === target) {
+            return mid;
+        }
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+  	}
+  	return -1
+  }
+  console.log(linearSort(arr1,13));
+
+  //Find Min-Max in an array
+  function findMinMax(arr){
+  	let currentMin = arr[0];
+  	let currentMax = arr[0];
+  	let minMax = {};
+  	for (let i=0;i<arr.length;i++){
+  		if(currentMin>arr[i]){
+  			currentMin = arr[i];
+  		}else if(currentMax<arr[i]){
+  			currentMax = arr[i];
+  		}
+  	}
+  	minMax["Min"] = currentMin;
+  	minMax["Max"] = currentMax;
+  	return minMax;
+  }
+  console.log(findMinMax(arr));
+
+  //Linear search with self organizing data to improve performance for frequent data.
+
+ var items = [2, 5, 3, 7, 8, 10, 15, 18, 24, 111, 12, 19, 87];
+ function itemSearch(itemToFind) {   
+    items.forEach(function(itemValue, index, array){
+        if(itemValue === itemToFind) {
+            //as long as the current index value is not the first index in the array
+            if(index > 0) {
+                selfOrganize(array, index, index -1);
+            }
+        }
+    });
+    return items;
+}
+
+function selfOrganize(array, index, indexToSwap) {
+    //hold the item value in a temp variable
+    var tempCurrentValue = array[index];
+    //swap the current value with the index that comes before it
+    array[index] = array[indexToSwap];
+    //assign the prior index to the temp value
+    array[indexToSwap] = tempCurrentValue;
+}
+
+console.log("BEFORE: " + items);
+var firstSearch = itemSearch(7);
+var secondSearch = itemSearch(7);
+var thirdSearch = itemSearch(7);
+var fourthSearch = itemSearch(7);
+console.log("AFTER: " + fourthSearch);
+  </script>
+</body>
+</html>

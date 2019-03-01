@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Queue</title>
+
+</head>
+
+<body>
+  <script>
+  function Queue() {
+  this.data = [];
+  }
+  Queue.prototype.add = function(val){
+    this.data.unshift(val);
+  }
+  Queue.prototype.delete = function(){
+    this.data.pop;
+  }
+  Queue.prototype.first = function(){
+    return this.data[0];
+  }
+  Queue.prototype.last = function(){
+    return this.data[this.data.length - 1];
+  }
+  Queue.prototype.size = function(){
+    return this.data.length;
+  }
+  const q = new Queue();
+  q.add(1);
+  q.add(2);
+  q.add(3);
+  console.log(q);
+  console.log(q.first());
+  console.log(q.last());
+  q.remove();
+  </script>
+</body>
+</html>

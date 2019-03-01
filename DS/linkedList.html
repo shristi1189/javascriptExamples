@@ -1,0 +1,229 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Linked List</title>
+
+</head>
+
+<body>
+  <script>
+  function LinkedList(){
+  	this.head=null;
+  	this.tail=null
+  }
+  function Node(value,next,prev){
+  	this.value=value;
+  	this.prev=prev;
+  	this.next=next
+  }
+  
+  LinkedList.prototype.addToHead = function(value){
+  	const newNode = new Node(value, this.head, null);
+  	if (this.head) this.head.prev=newNode
+  		else this.tail = newNode
+  	this.head = newNode
+  }
+  LinkedList.prototype.addToTail = function(value){
+  	const newNode = new Node(value, this.tail, null);
+  	if (this.tail) this.head.next=newNode
+  		else this.head = newNode
+  	this.tail = newNode
+  }
+
+  LinkedList.prototype.removeHead = function(){
+  if (!this.head) return null;
+  let value = this.head.value;
+  this.head = this.head.next;
+  if (this.head) this.head.prev = null;
+  else this.tail = null;
+  return value;
+  }
+
+  LinkedList.prototype.removeTail = function() {
+  if (!this.tail) return null;
+  let value = this.tail.value;
+  this.tail = this.tail.prev;
+  if (this.tail) this.tail.next = null;
+  else this.head = null;
+  return value;
+  }
+
+  LinkedList.prototype.search = function(searchValue) {
+  let currentNode = this.head;
+  while(currentNode) {
+    if (currentNode.value === searchValue) return currentNode;
+    currentNode = currentNode.next; 
+  }
+  return null;
+  }
+
+  LinkedList.prototype.removeDuplicate = function() {
+  let currentNode = this.head;
+  if(!currentNode || !currentNode.next){
+    console.log("Linked list is empty");
+    return
+  }
+    var hash = {};
+    hash[currentNode.value] = true;
+    while(currentNode.next){
+      if(!hash[currentNode.next.value]) {
+                hash[currentNode.next.value] = true;
+            } else {
+              currentNode.next = currentNode.next.next
+            }
+            currentNode = currentNode.next
+            currentNode.next = currentNode.next.next
+    }
+  }
+
+  LinkedList.prototype.kthToLastNode = function(k) {
+    if (k<=0){
+      console.log('Please enter a positive integer');
+      return;
+    }
+    let currentNode = this.head;
+    for(i=0;i<k-1;i++){
+      if(!currentNode){
+        console.log('Please enter valid number, k is greater than the length');
+        return;
+      }
+      currentNode=currentNode.next;
+    }
+    if(!currentNode.next){
+      console.log('k is the size of the linked list');
+    }
+    return currentNode.value;
+  }
+
+//Javascript Linked List: Delete a node in the middle of a singly linked list, given access to only that node
+LinkedList.prototype.deleteNode = function(node){
+  if(node == null || node.next == null){
+    return false;
+  }
+  node.value = node.next.value;
+  node.next = node.next.next;
+  return true;
+}
+
+//Find mid point of a linked list
+LinkedList.prototype.findMidItem = function(){
+  let moveOneStep = this.head.next;
+  let moveTwoStep = this.head.next.next;
+  while(moveOneStep && moveTwoStep){
+    moveOneStep = moveOneStep.next;
+    moveTwoStep = moveTwoStep.next.next
+  }
+  return moveOneStep;
+}
+
+//check linked list is circular
+LinkedList.prototype.checkCircular = function(){
+let moveOneStep = list.head.next;
+  let moveTwoStep = list.head.next.next;
+  while(moveOneStep && moveTwoStep){
+    moveOneStep = moveOneStep.next;
+    moveTwoStep = moveTwoStep.next.next
+    if(moveOneStep == moveTwoStep) return true
+  }
+  return false;
+}
+
+//You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+//You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+/*Example:
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.*/
+function findSum(list1,list2){
+  let arr1 = [];
+  let arr2 = [];
+  var item = list1.head;
+  while(item){
+    arr1.push(item.value);
+    item = item.next;
+  }
+  var item = list2.head;
+  while(item){
+    arr2.push(item.value);
+    item = item.next;
+  }
+  let length1 = arr1.length;
+  let length2 = arr2.length;
+  var total = '';
+  var tens=0;
+  var carry=0;
+  for (var i=Math.max(length1,length2); i>0;i--){
+    var a=0,
+        b=0;
+    if(length1>0){
+      a=arr1[length1-1];
+    }
+    if(length2 > 0){
+      b = arr2[length2 - 1];
+      }
+      var sum = a + b + carry;  
+        if (sum > 9) {
+            carry = 1;
+            sum -= 10;
+        }
+        else {
+            carry = 0;
+        }
+        total = sum + total;
+    
+      length1--;
+      length2--;
+  }
+    if (carry) {
+        total = carry + total;
+    }
+ console.log(total);
+ const listOutput = new LinkedList();
+ total.split('').map(function(value) { listOutput.addToHead(value)});
+ return listOutput;
+}
+
+
+
+const list = new LinkedList();
+list.addToHead(100);
+list.addToHead(200);
+list.addToHead(300);
+list.addToHead(100);
+list.addToHead(500);
+list.addToHead(600);
+list.addToHead(700);
+list.addToHead(800);
+list.addToHead(100);
+list.addToHead(300);
+console.log(list);
+//console.log(list.kthToLastNode(5));
+//console.log(list.kthToLastNode(10));
+//console.log(list.kthToLastNode(12));
+//list.removeDuplicate();
+//console.log(list);
+//console.log(list.findMidItem());
+console.log(list.checkCircular());
+
+const otherlist = new LinkedList();
+otherlist.addToTail(100);
+otherlist.addToTail(200);
+otherlist.addToTail(300);
+//console.log(otherlist);
+//console.log(otherlist.search(300));
+const list1 = new LinkedList();
+list1.addToHead(1);
+list1.addToHead(2);
+list1.addToHead(3);
+const list2 = new LinkedList();
+list2.addToHead(9);
+list2.addToHead(9);
+list2.addToHead(9);
+list2.addToHead(7);
+console.log(findSum(list1,list2));
+  </script>
+</body>
+</html>

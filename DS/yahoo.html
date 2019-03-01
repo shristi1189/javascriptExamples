@@ -1,0 +1,37 @@
+<!--Number Algorithms -->
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Number Algorithms</title>
+
+</head>
+
+<body>
+  <script>
+  //Yahoo Questions
+  function sumOfArrAnything(arr){
+  	let sum=0;
+  	let newArr1 = [].concat.apply([],arr);
+  	for(let i=0;i<newArr1.length;i++){
+  		if(typeof newArr1[i] == "number")
+  			sum=newArr1[i]+sum;
+  		
+  	}
+  	return sum;
+  }
+  console.log(sumOfArrAnything([[1,2,3,'hello',4,5]]));
+  console.log(sumOfArrAnything([1,2,3,4,5]));
+  console.log(sumOfArrAnything(["dfhdskjfhs",1,2,3,[4,5]]));
+
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then(data=>data.json())
+  .then(response => {for(let i=0;i<response.length;i++){
+  	console.log(response[i].name);
+  	}
+	});
+  </script>
+</body>
+</html>

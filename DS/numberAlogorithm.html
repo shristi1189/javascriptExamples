@@ -1,0 +1,46 @@
+<!--Number Algorithms -->
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Number Algorithms</title>
+
+</head>
+
+<body>
+  <script>
+  /////Given an integer, determine if it is a power of 2. If so, return that number, else return -1. (0 is not a power of two)/////
+	isPowerOfTwo(4); // true
+	isPowerOfTwo(64); // true
+	isPowerOfTwo(1); // true
+	isPowerOfTwo(0); // false
+	isPowerOfTwo(-1); // false
+	isPowerOfTwo(9);
+	function isPowerOfTwo(num){
+		debugger;
+		console.log(num & (num - 1) === 0);
+	}
+
+	//For zero case
+	function isPowerOfTwoZeroCase(num){
+		return (num !== 0 ) & ((num & (num - 1)) === 0);
+	}
+
+//Given a number as an input, print out every integer from 1 to that number. However, when the integer is divisible by 2, print out “Fizz”; when it’s divisible by 3, print out “Buzz”; when it’s divisible by both 2 and 3, //print out “Fizz Buzz”.
+	function checkFizzBuzz(num){
+		for (i=1; i<=num; i++){
+			if(num%2 === 0 && num%3 === 0 ){
+				console.log("Fizz Buzz");
+			}else if(num%2  === 0){
+			console.log("Fizz");
+		}else if(num%3  === 0){
+			console.log("Buzz");
+		}
+		}
+	}
+
+  </script>
+</body>
+</html>

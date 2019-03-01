@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Stack</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <table><tbody>
+    <tr style="background-color: red">
+        <td>Donna</td>
+        <td>2016-10-01</td>
+        <td></td>
+    </tr>
+    <tr style="background-color: red">
+        <td>Nansen</td>
+        <td>2016-11-05</td>
+        <td>2016-11-14</td>
+    </tr>
+    <tr style="background-color: red">
+        <td>Peppe</td>
+        <td>2016-11-05</td>
+        <td>2016-11-14</td>
+    </tr>
+    <tr>
+        <td>J'Sira</td>
+        <td>2012-02-28</td>
+        <td>2012-03-14</td>
+    </tr>
+    <tr>
+        <td>Billie</td>
+        <td>2015-08-14</td>
+        <td>2015-10-09</td>
+    </tr>
+    <tr>
+        <td>Peyton</td>
+        <td>2015-08-14</td>
+        <td>2015-10-09</td>
+    </tr>
+</tbody></table>
+  <script>
+  function solution(D, T) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    debugger;
+    let count = 0;
+    let currentDate = new Date(D);
+    $('tr').each(function(){
+    let returnedDate;
+    let bookOverDue = new Date($(this).find('td:nth-child(2)').html()); 
+    if ($(this).find('td:nth-child(3)').html() != ""){
+        returnedDate = new Date($(this).find('td:nth-child(3)').html());}
+    else{
+        returnedDate = "Not Returned";
+    }
+    bookOverDue.setDate(bookOverDue.getDate() + T);
+    if(returnedDate > bookOverDue || (returnedDate == "Not Returned" && bookOverDue<currentDate)) {
+        if($(this).css('background-color') != 'red'){
+        count++;
+    }
+    }else{
+        if($(this).css('background-color') == 'red'){
+        count++;
+    }
+    }
+    });
+    return count;
+}
+    console.log(solution("2015-11-30",7));
+  </script>
+</body>
+</html>

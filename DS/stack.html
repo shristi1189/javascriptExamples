@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Stack</title>
+
+</head>
+
+<body>
+  <script>
+  function Stack() {
+  this.data = [];
+  }
+  Stack.prototype.add = function(val){
+    this.data.push(val);
+  }
+  Stack.prototype.delete = function(){
+    this.data.pop;
+  }
+  Stack.prototype.first = function(){
+    return this.data[0];
+  }
+  Stack.prototype.last = function(){
+    return this.data[this.data.length - 1];
+  }
+  Stack.prototype.size = function(){
+    return this.data.length;
+  }
+  const s = new Stack();
+  s.add(1);
+  s.add(2);
+  s.add(3);
+  console.log(s);
+  console.log(s.first());
+  console.log(s.last());
+  s.remove();
+  </script>
+</body>
+</html>

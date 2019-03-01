@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+
+</head>
+
+<body>
+  <script>
+  var myArray = [[1, 2],[3, 4, 5], [6, 7, 8, 9]];
+  //flatten to [1,2,3,4,5,6,7,8,9]
+
+  //Method 1: Using concat() and apply()
+  var newArr = [].concat.apply([],myArray); 
+  console.log(newArr);
+
+  //Method 2: Using reduce() and concat()
+  var newArr1 = myArray.reduce(function(prev, curr){
+    return prev.concat(curr);
+  });
+  console.log(newArr1);
+
+  //Method 3: Using for loop
+  var newArr2 = [];
+  for(i = 0; i < myArray.length; i++){
+    for(j = 0; j < myArray[i].length; j++){
+        newArr2.push(myArray[i][j]);
+    }
+  }
+  console.log(newArr2);
+
+  //Method 4 :  Using ES6 spread
+  var newArr3 = [].concat(...myArray);
+  console.log(newArr3);
+
+  //Method 5: Using Array.prototype.flat(). These are not compatible to all browser version and is still under dev.
+  var arr1 = [1, 2, [3, 4]];
+  arr1.flat(); 
+  console.log(arr1);// [1, 2, 3, 4]
+
+  var arr2 = [1, 2, [3, 4, [5, 6]]];
+  arr2.flat();
+  console.log(arr2);// [1, 2, 3, 4, [5, 6]]
+
+  var arr3 = [1, 2, [3, 4, [5, 6]]];
+  arr3.flat(2); //here 2 is the depth
+  console.log(arr3);// [1, 2, 3, 4, 5, 6]
+
+  //Method 6: Deep Flatten
+  var arr4 = [1,2,3,[1,2,3,4, [2,3,4]]];
+  function flattenDeep(arr4) {
+     return arr4.reduce((prev, next) => Array.isArray(next) ? prev.concat(flattenDeep(next)) : prev.concat(next), []);
+  }
+  console.log(flattenDeep(arr4));// [1, 2, 3, 1, 2, 3, 4, 2, 3, 4]
+  </script>
+</body>
+</html>

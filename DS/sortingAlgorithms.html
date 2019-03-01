@@ -1,0 +1,130 @@
+<!--Sorting Algorithms -->
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Sorting Algorithms</title>
+
+</head>
+
+<body>
+  <script>
+  /////Bubble Sort -  most inefficient Best Time- O(n), Average Time- O(n^2), Worst Time- O(n^2), Space - O(1)/////
+	const bubbleSortArr = [3,4,1,7,8,9,11,6,0,77,2];
+
+	const bubbleSort = (sortArr) => {
+		var sortArr = sortArr.slice();
+		var arrLength = sortArr.length-1;
+		do{
+		var swapped = false;
+		for(let i=0; i<arrLength;i++){
+			if(sortArr[i]>sortArr[i+1]){
+				var temp = sortArr[i];
+				sortArr[i] = sortArr[i+1];
+				sortArr[i+1] = temp;
+				swapped = true;
+			}
+		}	
+	}while(swapped === true);
+	return sortArr;
+	}	
+	console.log(bubbleSort(bubbleSortArr));
+
+	/////Insertion Sort - Best Time- O(n), Average Time- O(n^2), Worst Time- O(n^2), Space - O(1)/////
+	const insertionSortArr = [3,4,1,7,8,9,11,6,0,77,2];
+
+	const insertionSort = (sortArr) => {
+		var arrLength = sortArr.length;
+		for (let i=1; i<arrLength;i++){
+			var temp = sortArr[i];
+			var j=i-1;
+			for(j=i-1; j>=0 && sortArr[j]>temp; j--){
+				sortArr[j+1]=sortArr[j];
+			}
+			sortArr[j+1]=temp
+		}
+		return sortArr;
+	}	
+	console.log(insertionSort(insertionSortArr));
+
+	//Merge Sort
+	const mergeSortArr = [3,4,1,7,8,9,11,6,0,77,2];
+
+	const mergeSort = (sortArr) => {
+		if (sortArr.length < 2) {
+      	return sortArr;
+    	}
+		var midpoint = Math.floor(sortArr.length/2);
+		var subLeft = mergeSort(sortArr.slice(0,midpoint));
+		var subRight = mergeSort(sortArr.slice(midpoint));
+
+		var sortedList = merge(subLeft,subRight);
+		return sortedList;
+	}	
+	const merge = (item1,item2) => {
+		var result = [];
+		while(item1.length>0 && item2.length>0){
+			 result.push( item1[0]<item2[0] ? item1.shift() : item2.shift());
+		}
+		return result.concat(item1.length? item1 : item2);
+	}
+	console.log(mergeSort(mergeSortArr));
+
+	//Quick Sort - Best:Ω(n log(n))	Avg:Θ(n log(n))	Worst:O(n^2) Space: O(log(n))
+	let myArray = [3, 0, 2, 5, -1, 4, 1 ];
+	const quickSort = (arr) => {
+		if(arr.length <=1){
+			return arr;
+		}
+		let left=[];
+		let right=[];
+		let result = [];
+		let pivot = arr.pop();
+		let length = arr.length;
+		for(let i=0;i<length;i++){
+			if(arr[i]<pivot){
+				left.push(arr[i]);
+			}else{
+				right.push(arr[i]);
+			}
+		}
+		return result.concat(quickSort(left), pivot, quickSort(right));
+	}
+	console.log(quickSort(myArray));
+
+	//Selection Sort 
+	let myArr = [3, 0, 2, 5, -1, 4, 1 ];
+	const selectionSort = (arr) => {
+		if(arr.length <=1){
+			return arr;
+		}
+		const compare = (a,b) => {
+			return a-b;
+		}
+		var min = 0;
+		var temp = 0;
+		var index = 0;
+		debugger;
+		for (let i=0;i<arr.length;i++){
+			min = arr[i];
+			index=i;
+			for (j=i+1;j<arr.length;j++){
+				if(compare(min,arr[j])>0){
+					min=arr[j];
+					index=j;
+				}
+			}
+			temp = arr[i];
+			arr[i] = min;
+			arr[index] = temp;
+		}
+		return arr;
+	}
+	console.log(selectionSort(myArr));
+
+	//Heap sort - 
+  </script>
+</body>
+</html>
